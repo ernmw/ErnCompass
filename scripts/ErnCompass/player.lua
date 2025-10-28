@@ -53,7 +53,7 @@ interfaces.Settings.registerGroup {
     }, {
         key = "offsetX",
         name = "offsetX_name",
-        default = 50,
+        default = 46,
         renderer = "number",
         argument = {
             integer = true,
@@ -63,7 +63,7 @@ interfaces.Settings.registerGroup {
     }, {
         key = "offsetY",
         name = "offsetY_name",
-        default = 50,
+        default = 85,
         renderer = "number",
         argument = {
             integer = true,
