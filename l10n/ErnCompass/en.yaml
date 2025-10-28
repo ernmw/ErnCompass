@@ -1,69 +1,15 @@
 name: "ErnCompass"
-description: "Play Morrowind with just one analogue stick (instead of two)."
+description: "Text compass mod."
+modSettingsAdminTitle: "Settings"
 
-firstRunMessage: "You must unmap X and Y buttons for ErnCompass."
+debugMode_name: "Debug Log"
 
-modSettingsTitle: "Mod Options"
-modSettingsDesc: "Change how the mod works."
+anchor_name: "Anchor Corner"
+anchor_description: "Corner to place the compass."
+topleft: "Top Left    "
+topright: "Top Right   "
+bottomleft: "Bottom Left "
+bottomright: "Bottom Right"
 
-modSettingsInputTitle: "Inputs"
-modSettingsInputDesc: "Change the control scheme."
-
-modSettingsDPADTitle: "D-PAD"
-modSettingsDPADDesc: "If you have zero analogue sticks (only a Directional Pad), you'll be interested in these settings."
-
-modSettingsAdminTitle: "Admin"
-modSettingsAdminDesc: "Administrative settings."
-
-lockButton_name: "Lock-On Button"
-lockButton_description: "The key used to trigger lock-on. Click 'N/A' or 'None' to the right and then the button you want to assign."
-
-toggleButton_name: "Toggle Button"
-toggleButton_description: "Optional keybind for the combined-toggle button. Hold to toggle sneak, tap to cycle through Hands-Down, Spell Ready, and Weapon Ready."
-
-twoStickMode_name: "Two-Stick Mode"
-twoStickMode_description: "Use normal movement controls during travel mode. Enable this if you have two sticks."
-
-lookSensitivityVertical_name: "Look Sensitivity (Vertical)"
-lookSensitivityHorizontal_name: "Look Sensitivity (Horizontal)"
-invertLookVertical_name: "Invert Vertical Look Direction"
-freeLookZoom_name: "Freelook Zoom"
-volume_name: "Sound Effects Volume"
-
-dynamicPitch_name: "Dynamic Pitch"
-dynamicPitch_description: "Adjust pitch on-the-fly during travel mode. Turn this off if you have FPS issues or motion sickness."
-
-travelcam_name: "Camera POV - Travel"
-travelcam_description: "Camera point-of-view during travel mode."
-first: "First"
-third: "Third"
-
-enableShaders_name: "Enable Shaders"
-enableShaders_description: "Turn this off if you're running GLES (Portmaster)."
-
-autoLockon_name: "Automatic Lock-On"
-autoLockon_description: "In Travel or Freelook mode, automatically transition directly to Locked-On mode when you hit an NPC or Creature."
-
-lockedoncam_name: "Camera POV - Locked-On"
-lockedoncam_description: "Camera point-of-view during locked-on mode."
-
-runWhileLockedOn_name: "Can Run While Locked On"
-runWhileLockedOn_description: "Set this to false if you are running out of Fatigue often during combat."
-
-runMinimumFatigue_name: "Run Minimum Fatigue"
-runMinimumFatigue_description: "Disable running when your current Fatigue percent is lower than this value. If you have an analog stick, just keep this at 0."
-0%: "0%"
-25%: "25%"
-50%: "50%"
-75%: "75%"
-
-runWhenReadied_name: "Run While Readied"
-runWhenReadied_description: "Always run when you have your Spell or Weapon ready while in Travel mode. Bypasses 'Run Minimum Fatigue'."
-
-disable_name: "Disable Mod"
-disable_description: "Turn the mod off. You will need to reload lua (or save and then reload) afterward."
-
-debugMode_name: "Debug Mode"
-debugMode_description: "Turn on verbose logging. Please turn this on and grab the log if you are going to report an issue."
-
-firstRun_name: "(First Run)"
+offsetX_name: "Horizontal Offset"
+offsetY_name: "Vertical Offset"
