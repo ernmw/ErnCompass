@@ -22,6 +22,7 @@ local interfaces = require("openmw.interfaces")
 local ui = require('openmw.ui')
 local storage = require("openmw.storage")
 local async = require('openmw.async')
+local pself = require("openmw.self")
 
 local anchors = { "topleft", "topright", "bottomleft", "bottomright" }
 
@@ -176,11 +177,13 @@ end))
 
 local function onUpdate(dt)
     if dt == 0 then return end
-    compassElement.layout.props.visible = interfaces.UI.isHudVisible()
-    local facing = getFacing()
-    compassElement.layout.content.compass.props.text = facingAs16wind(facing)
+    local visible = interfaces.UI.isHudVisible() and pself.cell.isExterior
+    compassElement.layout.props.visible = visible
+    if visible then
+        local facing = getFacing()
+        compassElement.layout.content.compass.props.text = facingAs16wind(facing)
+    end
     compassElement:update()
-    --print(compassElement.layout.content.compass.props.text)
 end
 
 return {
