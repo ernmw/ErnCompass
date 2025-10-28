@@ -1,0 +1,5 @@
+PLAYER:scripts/ErnCompass/settings/group.lua
+MENU:scripts/ErnCompass/settings/page.lua
+GLOBAL:scripts/ErnCompass/settings/options.lua
+
+PLAYER:scripts/ErnCompass/player.lua
