@@ -40,11 +40,6 @@ interfaces.Settings.registerGroup {
     page = MOD_NAME,
     permanentStorage = true,
     settings = { {
-        key = "debugMode",
-        name = "debugMode_name",
-        default = false,
-        renderer = "checkbox"
-    }, {
         key = "anchor",
         name = "anchor_name",
         description = "anchor_description",
@@ -71,14 +66,40 @@ interfaces.Settings.registerGroup {
             min = -500,
             max = 500
         }
+    }, {
+        key = "size",
+        name = "size_name",
+        default = 16,
+        renderer = "number",
+        argument = {
+            integer = true,
+            min = 1,
+            max = 40
+        }
     },
+        {
+            key = "invertColor",
+            name = "invertColorName",
+            default = false,
+            renderer = "checkbox",
+        },
     }
 }
 
 local adminSettings = storage.playerSection('Settings' .. MOD_NAME)
-local anchor = adminSettings:get("anchor")
-local offsetX = adminSettings:get("offsetX")
-local offsetY = adminSettings:get("offsetY")
+local anchor
+local offsetX
+local offsetY
+local size
+local invertColor
+local function persistSettings()
+    anchor = adminSettings:get("anchor")
+    offsetX = adminSettings:get("offsetX")
+    offsetY = adminSettings:get("offsetY")
+    size = adminSettings:get("size")
+    invertColor = adminSettings:get("invertColor")
+end
+persistSettings()
 
 local north = util.vector3(0, 1, 0)
 local west = util.vector3(1, 0, 0)
@@ -132,10 +153,21 @@ local function anchorVec()
     error("bad value for anchor: " .. tostring(anchor))
 end
 
+local lightColor = util.color.rgb(223 / 255, 201 / 255, 159 / 255)
+local darkColor = util.color.rgb(96 / 255, 3 / 255, 0)
+
 local function makeCompass()
     local anchorV = anchorVec()
     local posSwap = util.vector2(1, 1) + (anchorV * (-2))
     local pos = util.vector2(offsetX, offsetY):emul(posSwap)
+
+    local textColor = lightColor
+    local shadowColor = darkColor
+    if invertColor then
+        textColor = darkColor
+        shadowColor = lightColor
+    end
+
     local box = ui.create {
         name = 'compass',
         layer = 'HUD',
@@ -153,8 +185,11 @@ local function makeCompass()
                 type = ui.TYPE.Text,
                 template = interfaces.MWUI.templates.textHeader,
                 props = {
+                    textColor = textColor,
+                    textShadowColor = shadowColor,
                     textShadow = true,
-                    text = "???"
+                    text = "???",
+                    textSize = size
                 },
             }
         }
@@ -166,9 +201,7 @@ local compassElement = makeCompass()
 
 
 adminSettings:subscribe(async:callback(function()
-    anchor = adminSettings:get("anchor")
-    offsetX = adminSettings:get("offsetX")
-    offsetY = adminSettings:get("offsetY")
+    persistSettings()
 
     compassElement:destroy()
     compassElement = makeCompass()
@@ -176,14 +209,26 @@ adminSettings:subscribe(async:callback(function()
 end))
 
 local function onUpdate(dt)
-    if dt == 0 then return end
+    -- Reduce calls to update UI.
+    local changed = false
+
     local visible = interfaces.UI.isHudVisible() and pself.cell.isExterior
-    compassElement.layout.props.visible = visible
-    if visible then
-        local facing = getFacing()
-        compassElement.layout.content.compass.props.text = facingAs16wind(facing)
+    if compassElement.layout.props.visible ~= visible then
+        changed = true
+        compassElement.layout.props.visible = visible
     end
-    compassElement:update()
+
+    if visible then
+        local facing = facingAs16wind(getFacing())
+        if compassElement.layout.content.compass.props.text ~= facing then
+            compassElement.layout.content.compass.props.text = facing
+            changed = true
+        end
+    end
+
+    if changed then
+        compassElement:update()
+    end
 end
 
 return {

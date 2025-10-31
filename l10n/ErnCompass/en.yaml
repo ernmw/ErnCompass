@@ -13,3 +13,5 @@ bottomright: "Bottom Right"
 
 offsetX_name: "Horizontal Offset"
 offsetY_name: "Vertical Offset"
+size_name: "Text Size"
+invertColorName: "Invert Text Color"
